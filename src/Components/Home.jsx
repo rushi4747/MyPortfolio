@@ -8,7 +8,7 @@ const Home = () => {
   const el = useRef(null);
   useEffect(() => {
     const typed = new Typed(el.current, {
-      strings: [" I&apos;m a Frontend<br> Devloper "],
+      strings: [" I&apos;m a Front-End<br> Developer "],
       typeSpeed: 100,
     });
     return () => {
