@@ -1,0 +1,29 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "src/index.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/api/(.*)",
+        "dest": "/api/$1"
+      }
+    ],
+    "env": {
+      "MY_API_KEY": "your-api-key",
+      "ANOTHER_VARIABLE": "value"
+    },
+    "cron": [
+      {
+        "path": "/api/cron",
+        "schedule": "0 0 * * *",  // Example: Runs every midnight
+        "function": "api/cron-job"  // Path to your cron job function
+      }
+    ]
+  }
+  git push -u -f origin master
+
+  
