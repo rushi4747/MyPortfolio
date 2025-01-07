@@ -2,12 +2,15 @@ import React, { useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
 import leftImage from "../assets/LeftImage.jpeg"; // Correctly importing the image
 import { FaWhatsapp, FaInstagram, FaGithub, FaEnvelope } from "react-icons/fa";
+
 const Contact = () => {
   const form = useRef();
   const [done, setDone] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const sendEmail = (e) => {
     e.preventDefault();
+    setLoading(true);
 
     emailjs
       .sendForm(
@@ -21,35 +24,28 @@ const Contact = () => {
           console.log(result.text);
           setDone(true);
           form.reset();
+          setLoading(false);
         },
         (error) => {
           console.log(error.text);
+          setLoading(false);
         }
       );
   };
 
   return (
-    <div name="Contact" className="h-screen w-full bg-gradient-to-b from-black to-gray-800 p-3 text-white">
-      <div className="max-w-screen-lg h-full flex flex-col lg:flex-row justify-center items-center p-4 mx-auto">
+    <div
+      name="Contact"
+      className="bg-gradient-to-b from-black min-h-screen py-16 text-white to-gray-800 w-full"
+    >
+      <div className="max-w-7xl h-full flex flex-col lg:flex-row justify-center items-center p-4 mx-auto space-y-8 lg:space-y-0 ">
         
         {/* Left Side: Image and Social Media Links */}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            position: "relative",
-            left: "-18%",
-            top: "7%",
-            width: "100%",
-            marginBottom: window.innerWidth >= 1048 ? "0" : "32px",
-          }}
-        >
+        <div className="flex flex-col justify-center items-center space-y-4">
           <img
             src={leftImage}
             alt="Contact"
-            className="w-full h-auto rounded-md shadow-lg"
+            className="h-auto rounded-md object-cover shadow-lg sm:w-full"
           />
 
           {/* Social Media Buttons */}
@@ -58,7 +54,8 @@ const Contact = () => {
               href="https://wa.me/8408032420"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white hover:text-green-500 text-3xl"
+              aria-label="WhatsApp"
+              className="text-white hover:text-green-500 text-3xl transition-transform duration-200 transform hover:scale-110"
             >
               <FaWhatsapp />
             </a>
@@ -66,7 +63,8 @@ const Contact = () => {
               href="https://www.instagram.com/rrp_4747"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white hover:text-pink-500 text-3xl"
+              aria-label="Instagram"
+              className="text-white hover:text-pink-500 text-3xl transition-transform duration-200 transform hover:scale-110"
             >
               <FaInstagram />
             </a>
@@ -74,7 +72,8 @@ const Contact = () => {
               href="mailto:rushikeshpathare111@gmail.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white hover:text-red-500 text-3xl"
+              aria-label="Email"
+              className="text-white hover:text-red-500 text-3xl transition-transform duration-200 transform hover:scale-110"
             >
               <FaEnvelope />
             </a>
@@ -82,7 +81,8 @@ const Contact = () => {
               href="https://github.com/rushi4747"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white hover:text-gray-500 text-3xl"
+              aria-label="GitHub"
+              className="text-white hover:text-gray-500 text-3xl transition-transform duration-200 transform hover:scale-110"
             >
               <FaGithub />
             </a>
@@ -90,16 +90,12 @@ const Contact = () => {
         </div>
 
         {/* Right Side: Contact Form */}
-        <div className="flex flex-col justify-center items-center lg:w-1/2 w-full">
-          <h1 className="text-2xl md:text-4xl text-white font-bold">
-            Get in Touch Contact me
+        <div className="flex flex-col justify-center items-center lg:w-1/2 w-full space-y-4">
+          <h1 className="text-2xl md:text-4xl text-white font-bold text-center m-[14px]">
+            Submit the form to<br />get in touch with me.
           </h1>
-          <p className="py-4 text-center">
-            Submit the form to get in touch with me
-          </p>
-
           {/* Form */}
-          <form ref={form} onSubmit={sendEmail} className="flex flex-col w-full lg:w-[100%]">
+          <form ref={form} onSubmit={sendEmail} className="flex flex-col w-full lg:w-3/4">
             <input
               type="text"
               name="user_name"
@@ -123,17 +119,25 @@ const Contact = () => {
             ></textarea>
 
             {/* Submit Button */}
-            <button className="text-white bg-blue-700 mx-auto flex items-center rounded-lg hover:scale-105 duration-200 px-6 py-3 mt-4">
-              Send Message
+            <button
+              type="submit"
+              className={`text-white bg-blue-700 mx-auto flex items-center rounded-lg hover:scale-105 duration-200 px-6 py-3 mt-4 ${
+                loading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              disabled={loading}
+            >
+              {loading ? "Sending..." : "Send Message"}
             </button>
 
             {/* Success Message */}
-            <span>{done && "Thanks for Contacting me!"}</span>
-
+            {done && (
+              <span className="text-green-500 mt-4 text-center">
+                Thanks for contacting me! I'll get back to you soon.
+              </span>
+            )}
           </form>
         </div>
       </div>
-      <div className="blur c-blur1" style={{ background: "var(--purple)" }}></div>
     </div>
   );
 };

@@ -46,7 +46,7 @@ const Portfolio = () => {
     {
       id: 6,
       src: PM,
-      link: "https://mangesh-portfolio-rt.vercel.app/",
+      link: "https://rushikesh-portfolio47.vercel.app/",
       name: "Personal PortFolio",
       Stack: "HTML, CSS, Javascript, React.js, Tailwind, React Router",
     },
@@ -63,7 +63,7 @@ const Portfolio = () => {
       name="Portfolio"
       className="bg-gradient-to-b from-black to-gray-800 w-full  text-white  md:h-auto h-auto "
     >
-      <div className=" max-w-screen-xl  mx-auto flex-col flex  h-full  pt-7 w-full p-4 ">
+      <div className=" max-w-7xl  mx-auto flex-col flex  h-full  pt-7 w-full p-4 ">
         <div className="pb-4">
           <p className="text-4xl font-bold inline border-b-4 border-gray-400">
             Portfolio
